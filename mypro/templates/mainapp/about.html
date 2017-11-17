@@ -1,0 +1,25 @@
+{% extends 'mainapp/base.html' %}
+{% load blog_tags %}
+{% block main %}
+{% load staticfiles %}
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="clean-breadcrumb">
+                    <a>关于我</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="widewrapper main">
+        <div class="container about">
+        {% if me %}
+            {{ me }}
+        {% else %}
+            暂无介绍！
+        {% endif %}
+            <hr>
+        </div>
+    {% endblock main %}
+        {% block main1 %}
+        {% endblock main1 %}

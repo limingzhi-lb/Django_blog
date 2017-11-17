@@ -1,0 +1,139 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+    <div class="widewrapper subheader">
+        <div class="container">
+            <div class="clean-breadcrumb">
+                <a href="{% url 'mainapp:index' %}">博客</a>
+                <span class="separator">&#x2F;</span>
+                <a href="{% url 'mainapp:category_posts' post.category.pk %}">{{ post.category }}</a>
+                <span class="separator">&#x2F;</span>
+                <a href="#">{{ post.title }}</a>
+            </div>
+
+
+            <div class="clean-searchbox">
+                <form action="#" method="get" accept-charset="utf-8">
+
+                    <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+                    <button class="searchbutton" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </header>
+
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 blog-main">
+                    <article class="blog-post">
+                        <header>
+
+                        </header>
+                        <div class="body">
+                            <h1>{{ post.title }}</h1>
+                            <div class="meta">
+                                <i class="fa fa-user"></i> {{ post.author }} <i
+                                    class="fa fa-calendar"></i>{{ post.created_time }}<i
+                                    class="fa fa-comments"></i><span class="data"><a
+                                    href="#comments">阅读量{{ post.views }}</a></span>
+                            </div>
+                            {{ post.body|safe }}
+                        </div>
+                    </article>
+                    <aside class="social-icons clearfix">
+                    </aside>
+                    <aside class="comments" id="comments">
+                        <hr>
+
+                        <h2><i class="fa fa-comments"></i> {{ comment_list.count }} 条评论</h2>
+                        {% for comment in comment_list %}
+                            <article class="comment">
+                                <header class="clearfix">
+                                    {#                                <img src="img/avatar.png" alt="A Smart Guy" class="avatar">#}
+                                    <div class="meta">
+                                        <h3><a href="#">{{ comment.name }}</a></h3>
+                                        <span class="date">
+                                        {{ comment.created_time }}
+                                    </span>
+                                        {#                                    <span class="separator">#}
+                                        {#                                        -#}
+                                        {#                                    </span>#}
+                                        {#                                    此处提供回复评论功能，暂时不添加#}
+                                        {#                                    <a href="#create-comment" class="reply-link">Reply</a>                #}
+                                    </div>
+                                </header>
+                                <div class="body">
+                                    {{ comment.text }}
+                                </div>
+                            </article>
+                        {% endfor %}
+                        {#                            此为回复评论#}
+                        {#                        <article class="comment reply">#}
+                        {#                            <header class="clearfix">#}
+                        {#                                <img src="img/avatar.png" alt="A Smart Guy" class="avatar">#}
+                        {#                                <div class="meta">#}
+                        {#                                    <h3><a href="#">John Doe</a></h3>#}
+                        {#                                    <span class="date">#}
+                        {#                                        24 August 2015#}
+                        {#                                    </span>#}
+                        {#                                    <span class="separator">#}
+                        {#                                        -#}
+                        {#                                    </span>#}
+                        {#                                    #}
+                        {#                                    <a href="#create-comment" class="reply-link">Reply</a>                #}
+                        {#                                </div>#}
+                        {#                            </header>#}
+                        {#                             <div class="body">#}
+                        {#                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere sit perspiciatis debitis, vel ducimus praesentium expedita, assumenda ipsum cum corrupti dolorum modi. Rem ipsam similique sapiente obcaecati tenetur beatae voluptatibus.#}
+                        {#                            </div>#}
+                        {#                        </article>#}
+
+                    </aside>
+                    <aside class="create-comment" id="create-comment">
+                        <hr>
+
+                        <h2><i class="fa fa-pencil"></i> 你的评论</h2>
+
+                        <form action="{% url 'mainapp:comments' post.pk %}" method="post" accept-charset="utf-8">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="form.name.id_for_label">名字</label>
+                                    {{ form.name }}
+                                    {{ form.name.error }}
+                                    {#                                    <input type="text" name="name" id="comment-name" placeholder="Your Name" class="form-control input-lg">    #}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="form.email.id_for_label">邮箱</label>
+                                    {{ form.email }}
+                                    {{ form.email.error }}
+                                    {#                                    <input type="email" name="email" id="comment-email" placeholder="Email" class="form-control input-lg">    #}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="form.url.id_for_label">网址</label>
+                                {{ form.url }}
+                                {{ form.url.error }}
+                            </div>
+                            {#                            <input type="url" name="name" id="comment-url" placeholder="Website" class="form-control input-lg">#}
+
+                            {#                            <textarea rows="10" name="message" id="comment-body" placeholder="Your Message" class="form-control input-lg"></textarea>#}
+                            <div class="col-md-12">
+                                <label for="form.text.ib_for_label">内容</label>
+                                {{ form.text }}
+                                {{ form.text.error }}
+                            </div>
+                            <div class="buttons clearfix">
+                                <button type="submit" class="btn btn-xlarge btn-clean-one">提交</button>
+                            </div>
+
+                        </form>
+                    </aside>
+
+                </div>
+{% endblock main %}
