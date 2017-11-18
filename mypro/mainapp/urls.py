@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^category/post/(?P<pk>[0-9]+)/$', views.CategoryPosts.as_view(), name='category_posts'),
     url(r'^about_me/$', views.about, name='about'),
     url(r'^contact_me/$', login_required(views.contact), name='contact'),
-    url(r'^search/$', views.search, name='search'),
+    #url(r'^search/$', views.search, name='search'),
 ]

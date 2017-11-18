@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'mainapp',
     'users',
 ]
@@ -114,6 +115,22 @@ AUTH_USER_MODEL = 'users.User'
 LANGUAGE_CODE = 'zh-Hans'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'mainapp.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+},
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '17865923550@163.com'
+EMAIL_HOST_PASSWORD = 'zhi8023ming'
+DEFAULT_FROM_EMAIL = '17865923550@163.com'
+
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True

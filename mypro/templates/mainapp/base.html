@@ -1,13 +1,14 @@
 {% load staticfiles %}
 {% load blog_tags %}
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>首页</title>
+    <title>{% block title %}{% endblock %}</title>
+
+    <!--<title>首页</title>-->
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-
+    <style>span.highlighted {  color: red;  }</style>
     <!-- Bootstrap styles -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
@@ -26,7 +27,6 @@
 
 </head>
 <body>
-{#    <header>#}
         <div class="widewrapper masthead">
             <div class="container">
                 <a href="{% url 'mainapp:index' %}" id="logo">
@@ -53,8 +53,10 @@
                                 <a href="{% url 'mainapp:contact' %}">联系我</a>
                             </li>
                             {% if user.is_authenticated %}
-                            <li class="cl-effect-11"><a href="{% url 'logout' %}">Logout</a></li>{% else %}
-                            <li class="cl-effect-11"><a href="{% url 'login' %}">Login</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'logout' %}">退出</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'password_change' %}">修改密码</a></li>
+                            {% else %}
+                            <li class="cl-effect-11"><a href="{% url 'login' %}">登录</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -62,6 +64,7 @@
 
             </div>
         </div>
+    <div style="margin-bottom: 50px">
             {% block main %}
             {% endblock %}
     {% block main1 %}
@@ -110,53 +113,10 @@
                         </div>
                     </div>
                 </aside>
-            </div>
-        </div>
     {% endblock %}
-    </div>
-
-    <footer>
-        <div class="widewrapper footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 footer-widget">
-                        <h3> <i class="fa fa-user"></i>About</h3>
-
-                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab animi laboriosam nostrum consequatur fugiat at, labore praesentium modi, quasi dolorum debitis reiciendis facilis, dolor saepe sint nemo, earum molestias quas.</p>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, error aspernatur assumenda quae eveniet.</p>
-                    </div>
-
-                    <div class="col-md-4 footer-widget">
-                        <h3> <i class="fa fa-pencil"></i> Recent Post</h3>
-                        <ul class="clean-list">
-                            <li><a href="">Clean - Responsive HTML5 Template</a></li>
-                            <li><a href="">Responsive Pricing Table</a></li>
-                            <li><a href="">Yellow HTML5 Template</a></li>
-                            <li><a href="">Blackor Responsive Theme</a></li>
-                            <li><a href="">Portfolio Bootstrap Template</a></li>
-                            <li><a href="">Clean Slider Template</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-4 footer-widget">
-                        <h3> <i class="fa fa-envelope"></i>Contact Me</h3>
-
-                        <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil fugiat, cupiditate veritatis excepturi tempore explicabo.</p>
-                         <div class="footer-widget-icon">
-                            <i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-google"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </footer>
-
+</div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/modernizr.js"></script>
-
 </body>
 </html>

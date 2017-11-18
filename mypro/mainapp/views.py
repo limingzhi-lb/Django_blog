@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import Post, Tag, Category, Me, Message
+from .models import Post, Tag, Category, Me, Message, Comment
 from .forms import CommentForm
 from markdown import markdown
 from django.db.models import Q
@@ -53,11 +53,31 @@ class PostDetailView(DetailView):
 def comments(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
+        print("******************")
+        text = request.POST.get('text')
+        print(text)
+        name = request.user
+        email = request.user.email
+        url = "http://www.baidu.com"
+        result = request.POST
+        data = Comment()
+        data.name = name
+        data.email = email
+        data.url = url
+        data.text = text
+        data.post = post
+        # result['name'] = name
+        # result['email'] = email
+        # result['url'] = url
+        # form = CommentForm(result)
+
+        # form.text = text
+        # if form.is_valid():
+        print("####################")
+        # comment = form.save(commit=False)
+        # comment.post = post
+        # comment.save()
+        data.save()
     return redirect(post)
 
 
@@ -85,8 +105,8 @@ def about(request):
 
 def contact(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
+        name = request.user
+        email = request.user.email
         message = request.POST.get('message')
         msg = Message()
         msg.name = name
@@ -98,7 +118,7 @@ def contact(request):
     else:
         flag = request.session.get('send_email')
         request.session['send_email'] = False
-        return render(request, 'mainapp/contact.html', {'flag': flag})
+        return render(request, 'mainapp/contact.html')
 
 
 def search(request):

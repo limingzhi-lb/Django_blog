@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^', include('mainapp.urls', namespace='mainapp')),
     url(r'^users/', include('users.urls', namespace='users')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^search/', include('haystack.urls')),
 ]

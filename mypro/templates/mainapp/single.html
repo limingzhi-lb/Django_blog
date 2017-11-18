@@ -99,40 +99,50 @@
 
                         <h2><i class="fa fa-pencil"></i> 你的评论</h2>
 
-                        <form action="{% url 'mainapp:comments' post.pk %}" method="post" accept-charset="utf-8">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="form.name.id_for_label">名字</label>
-                                    {{ form.name }}
-                                    {{ form.name.error }}
-                                    {#                                    <input type="text" name="name" id="comment-name" placeholder="Your Name" class="form-control input-lg">    #}
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="form.email.id_for_label">邮箱</label>
-                                    {{ form.email }}
-                                    {{ form.email.error }}
-                                    {#                                    <input type="email" name="email" id="comment-email" placeholder="Email" class="form-control input-lg">    #}
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="form.url.id_for_label">网址</label>
-                                {{ form.url }}
-                                {{ form.url.error }}
-                            </div>
-                            {#                            <input type="url" name="name" id="comment-url" placeholder="Website" class="form-control input-lg">#}
+                        <!--<form action="{% url 'mainapp:comments' post.pk %}" method="post" accept-charset="utf-8">-->
+                            <!--{% csrf_token %}-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-6">-->
+                                    <!--<label for="form.name.id_for_label">名字</label>-->
+                                    <!--{{ form.name }}-->
+                                    <!--{{ form.name.error }}-->
+                                    <!--{#                                    <input type="text" name="name" id="comment-name" placeholder="Your Name" class="form-control input-lg">    #}-->
+                                <!--</div>-->
+                                <!--<div class="col-md-6">-->
+                                    <!--<label for="form.email.id_for_label">邮箱</label>-->
+                                    <!--{{ form.email }}-->
+                                    <!--{{ form.email.error }}-->
+                                    <!--{#                                    <input type="email" name="email" id="comment-email" placeholder="Email" class="form-control input-lg">    #}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-12">-->
+                                <!--<label for="form.url.id_for_label">网址</label>-->
+                                <!--{{ form.url }}-->
+                                <!--{{ form.url.error }}-->
+                            <!--</div>-->
+                            <!--{#                            <input type="url" name="name" id="comment-url" placeholder="Website" class="form-control input-lg">#}-->
 
-                            {#                            <textarea rows="10" name="message" id="comment-body" placeholder="Your Message" class="form-control input-lg"></textarea>#}
-                            <div class="col-md-12">
-                                <label for="form.text.ib_for_label">内容</label>
-                                {{ form.text }}
-                                {{ form.text.error }}
-                            </div>
-                            <div class="buttons clearfix">
-                                <button type="submit" class="btn btn-xlarge btn-clean-one">提交</button>
-                            </div>
+                            <!--{#                            <textarea rows="10" name="message" id="comment-body" placeholder="Your Message" class="form-control input-lg"></textarea>#}-->
+                            <!--<div class="col-md-12">-->
+                                <!--<label for="form.text.ib_for_label">内容</label>-->
+                                <!--{{ form.text }}-->
+                                <!--{{ form.text.error }}-->
+                            <!--</div>-->
+                            <!--<div class="buttons clearfix">-->
+                                <!--<button type="submit" class="btn btn-xlarge btn-clean-one">提交</button>-->
+                            <!--</div>-->
 
-                        </form>
+                        <!--</form>-->
+                        <div class="col-md-12">
+                         <form action="{% url 'mainapp:comments' post.pk %}" method="post" accept-charset="utf-8" class="contact-form">
+                        {% csrf_token %}
+                          <textarea rows="10" name="text" id="contact-body" placeholder="评论" class="form-control input-lg"></textarea>
+                        <div class="buttons clearfix">
+                            <button type="submit" class="btn btn-xlarge btn-clean-one">提交</button>
+                        </div>
+                    </form>
+                        </div>
+
                     </aside>
 
                 </div>

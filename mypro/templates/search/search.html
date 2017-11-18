@@ -1,0 +1,30 @@
+{% extends 'mainapp/base.html' %}
+{% load highlight %}
+{% block main %}
+{% if query %}
+{% for result in page.object_list %}
+<article class="post post-{{ result.object.pk }}" style="margin-left: 10%">
+    <header class="entry-header">
+        <h1 class="entry-title">
+            <a href="{{ result.object.get_absolute_url }}">{% highlight result.object.title with query %}</a>
+        </h1>
+    </header>
+    <div class="entry-content clearfix">
+        <p>{% highlight result.object.body with query %}</p>
+        <div class="read-more cl-effect-14">
+            <a href="{{ result.object.get_absolute_url }}" class="more-link">继续阅读 <span
+                    class="meta-nav">→</span></a>
+        </div>
+    </div>
+</article>
+{% empty %}
+<div class="no-post">没有搜索到你想要的结果!</div>
+{% endfor %}
+{% endif %}
+{% endblock main %}
+{% block main1 %}
+{% endblock main1 %}
+
+
+
+

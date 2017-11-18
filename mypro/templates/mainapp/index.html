@@ -1,92 +1,81 @@
 {% extends 'mainapp/base.html' %}
 {% load staticfiles %}
 {% load blog_tags %}
+{% block title %}首页{% endblock title %}
 {% block main %}
-    <div class="widewrapper subheader">
-            <div class="container">
-                <div class="clean-breadcrumb">
-                    <a href="#">博客</a>
-                </div>
+<div class="widewrapper subheader">
+    <div class="container">
+        <div class="clean-breadcrumb">
+            <a href="#">博客</a>
+        </div>
 
-                <div class="clean-searchbox">
-                    <form action="{% url 'mainapp:search' %}" method="get" accept-charset="utf-8">
-{#                    <form action="#" method="get" accept-charset="utf-8">#}
-                        <input class="searchfield" name="q" id="searchbox" type="text" placeholder="Search">
-                        <button class="searchbutton" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
+        <div class="clean-searchbox">
+            <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+                <input class="searchfield" name="q" id="searchbox" type="text" placeholder="Search">
+                <button class="searchbutton" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="widewrapper main">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                <div class="row">
+                    {% for post in post_list %}
+                    {% if forloop.counter < 3 %}
+                    <div class="col-md-6 col-sm-6">
+                        <article class=" blog-teaser">
+                            <header>
+                                <h3><a href="{% url 'mainapp:detail' post.pk %}">{{ post.title }}</a></h3>
+                                <span class="meta">{{ post.created_time }}</span>
+                                <hr>
+                            </header>
+                            <div class="body">
+                                {{ post.excerpt }}
+                            </div>
+                            <div class="clearfix">
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-clean-one">阅读全文</a>
+                            </div>
+                        </article>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% if post_list.count > 2 %}
+                <div class="row">
+                    {% for post in post_list %}
+                    {% if forloop.counter > 2 %}
+                    <div class="col-md-6 col-sm-6">
+                        <article class="blog-teaser">
+                            <header>
+                                <h3><a href="{% url 'mainapp:detail' post.pk %}">{{ post.title }}</a></h3>
+                                <span class="meta">{{ post.created_time }}</span>
+                                <hr>
+                            </header>
+                            <div class="body">
+                                {{ post.excerpt }}
+                            </div>
+                            <div class="clearfix">
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-clean-one">阅读全文</a>
+                            </div>
+                        </article>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="paging">
+                    <a href="#" class="older">Older Post</a>
                 </div>
             </div>
+            {% endblock main %}
         </div>
-    </header>
+    </div>
+</div>
 
-    <div class="widewrapper main">
-    {% if error_msg %}
-        <p>{{ error_msg }}</p>
-    {% endif %}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 blog-main">
-{#                        {% for post in post_list[:] %}#}
-{#                        {% if post_list.count <= 2 %}#}
-                            <div class="row">
-                            {% for post in post_list %}
-{#                                {{ post_list.count }}#}
-{#                                {{ loop.index }}#}
-                                {% if forloop.counter < 3 %}
-                        <div class="col-md-6 col-sm-6">
-                            <article class=" blog-teaser">
-                                <header>
-{#                                    <img src="img/1.jpg" alt="">#}
-                                    <h3><a href="{% url 'mainapp:detail' post.pk %}">{{ post.title }}</a></h3>
-                                    <span class="meta">{{ post.created_time }}</span>
-                                    <hr>
-                                </header>
-                                <div class="body">
-                                    {{ post.excerpt }}
-                                </div>
-                                <div class="clearfix">
-                                    <a href="{{ post.get_absolute_url }}" class="btn btn-clean-one">阅读全文</a>
-                                </div>
-                            </article>
-                        </div>
-                                {% endif %}
-                            {% endfor %}
-
-                    </div>
-{#                {{ num }}#}
-                        {% if post_list.count > 2 %}
-                             <div class="row">
-                            {% for post in post_list %}
-{#                                {%  num = num + 1 %}#}
-                                {% if forloop.counter > 2 %}
-                                <div class="col-md-6 col-sm-6">
-                            <article class="blog-teaser">
-                                <header>
-{#                                    <img src="img/3.jpg" alt="">#}
-{#                                    <h3><a href="single.html"></a></h3>#}
-                                    <h3><a href="{% url 'mainapp:detail' post.pk %}">{{ post.title }}</a></h3>
-                                    <span class="meta">{{ post.created_time }}</span>
-                                    <hr>
-                                </header>
-                                <div class="body">
-                                    {{ post.excerpt }}
-                                </div>
-                                <div class="clearfix">
-                                    <a href="{{ post.get_absolute_url }}" class="btn btn-clean-one">阅读全文</a>
-                                </div>
-                            </article>
-                        </div>
-                            {% endif %}
-                            {% endfor %}
-                             </div>
-                        {% endif %}
-
-
-
-                    <div class="paging">
-                        <a href="#" class="older">Older Post</a>
-                    </div>
-                </div>
-{% endblock main %}
